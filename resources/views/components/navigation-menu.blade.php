@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('videos.index') }}" :active="request()->routeIs('videos.index')">
+                    <x-nav-link href="{{ Auth::user()->hasRole('admin') ? route('admin.videos.index') : route('user.videos.index') }}" :active="request()->routeIs((Auth::user()->hasRole('admin') ? 'admin.videos.index' : 'user.videos.index'))">
                         {{ trans_choice('models/video.module', 2) }}
                     </x-nav-link>
                 </div>

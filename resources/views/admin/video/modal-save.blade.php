@@ -1,4 +1,4 @@
-<x-dialog-modal action="save" wire:model.live="flagOpenModal">
+<x-dialog-save-modal action="save" wire:model.live="flagOpenModal">
     <x-slot name="title">
         @if(is_null($video['id']))
             @lang('models/video.actions.create')
@@ -32,4 +32,4 @@
             @lang('general.actions.save')
         </x-button>
     </x-slot>
-</x-dialog-modal>
+</x-dialog-save-modal>

@@ -11,5 +11,6 @@ return [
         'create' => 'Crear vídeo',
         'edit' => 'Editar vídeo',
         'destroy' => 'Eliminar vídeo',
+        'show' => 'Ver vídeo',
     ],
 ];

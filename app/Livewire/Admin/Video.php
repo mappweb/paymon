@@ -92,6 +92,6 @@ class Video extends Component
     public function render(): mixed
     {
         $data['videos'] = VideoModel::query()->paginate(10);
-        return view('admin.index', $data);
+        return view('admin.video.index', $data);
     }
 }

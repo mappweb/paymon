@@ -8,6 +8,8 @@ return [
         'save' => 'Guardar',
         'cancel' => 'Cancelar',
         'logout' => 'Salir',
+        'show' => 'Ver',
+        'close' => 'Cerrar',
     ],
     'table' => [
         'columns' => [

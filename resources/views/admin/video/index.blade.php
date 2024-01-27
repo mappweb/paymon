@@ -16,10 +16,10 @@
                 </p>
 
                 <!-- Create Or Edit Modal -->
-                @include('admin.modal-save')
+                @include('admin.video.modal-save')
 
                 <!-- Delete Modal -->
-                @include('admin.modal-destroy')
+                @include('admin.video.modal-destroy')
 
                 <table class="mt-4 table-fixed w-full">
                     <thead>

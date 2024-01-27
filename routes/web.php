@@ -1,6 +1,7 @@
 <?php
 
-use App\Livewire\Admin\Video;
+use App\Livewire\Admin\Video as VideoAdmin;
+use App\Livewire\User\Video as VideoUser;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Home;
@@ -29,12 +30,18 @@ Route::group(['middleware' => ['guest']], static function () {
 
 Route::group(['middleware' => ['auth']], static function () {
     Route::get('home', Home::class)->name('home');
-    Route::get('videos', Video::class)->name('videos.index');
-
     Route::post('logout', static function () {
         Auth::logout();
         return redirect()->route('login');
     })->name('logout');
+});
+
+Route::group(['prefix' => 'admin', 'middleware' => ['auth']], static function () {
+    Route::get('videos', VideoAdmin::class)->name('admin.videos.index');
+});
+
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], static function () {
+    Route::get('videos', VideoUser::class)->name('user.videos.index');
 });
 
 
