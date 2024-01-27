@@ -24,7 +24,7 @@ Route::group(['middleware'=>'guest'], function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::get('home', \App\Livewire\Home::class)->name('home');
-    Route::get('videos', \App\Livewire\Admin\Video\Index::class)->name('videos.index');
+    Route::get('videos', \App\Livewire\Admin\Video::class)->name('videos.index');
 
     Route::post('logout', function () {
         \Illuminate\Support\Facades\Auth::logout();
