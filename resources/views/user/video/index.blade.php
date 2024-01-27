@@ -8,7 +8,11 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             <div class="p-6 lg:p-8 bg-white border-b border-gray-200">
-
+                <div class="relative w-full">
+                    <x-input wire:model.live="searchVideo" type="text" id="simple-search"
+                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                           placeholder="Search Video..." required=""/>
+                </div>
                 <!-- Show Modal -->
                 @include('user.video.modal-show')
 
@@ -21,7 +25,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($videos as $key => $item)
+                    @forelse($videos as $key => $item)
                         <tr>
                             <td class="border px-4 py-2">{{ ($key + 1) }}</td>
                             <td class="border px-4 py-2">{{ $item->label }}</td>
@@ -31,7 +35,13 @@
                                 </x-secondary-button>
                             </td>
                         </tr>
-                    @endforeach
+                    @empty
+                        <tr>
+                            <td class="px-6 py-4 text-sm text-center" colspan="3">
+                                No se ha encontrado ningún vídeo.
+                            </td>
+                        </tr>
+                    @endforelse
                     </tbody>
                 </table>
                 {{ $videos->links() }}

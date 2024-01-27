@@ -3,7 +3,6 @@
 namespace App\Livewire\User;
 
 use App\Models\Video as VideoModel;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,10 +12,7 @@ class Video extends Component
 
     protected $paginationTheme = 'bootstrap';
     public bool $flagOpenModal = false;
-    protected array $rules = [
-        'video.label' => 'required|string',
-        'video.url' => 'required|url',
-    ];
+    public $searchVideo = '';
     public $url;
 
     /**
@@ -30,11 +26,26 @@ class Video extends Component
     }
 
     /**
+     * @param $key
+     * @return void
+     */
+    public function updating($key): void
+    {
+        if ($key === 'searchVideo') {
+             $this->resetPage();
+        }
+    }
+
+    /**
      * @return mixed
      */
     public function render(): mixed
     {
-        $data['videos'] = VideoModel::query()->paginate(10);
+        $query = VideoModel::query();
+        if (!empty($this->searchVideo)) {
+             $query->where('label', 'like', "%{$this->searchVideo}%");
+        }
+        $data['videos'] = $query->paginate(10);
         return view('user.video.index', $data);
     }
 }
