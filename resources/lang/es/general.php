@@ -7,6 +7,7 @@ return [
         'delete' => 'Eliminar',
         'save' => 'Guardar',
         'cancel' => 'Cancelar',
+        'logout' => 'Salir',
     ],
     'table' => [
         'columns' => [

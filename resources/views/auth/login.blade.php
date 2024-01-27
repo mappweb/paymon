@@ -3,6 +3,12 @@
         <x-authentication-card-logo/>
     </x-slot>
 
+    @if (session('status'))
+        <div class="mb-4 font-medium text-sm text-green-600">
+            {{ session('status') }}
+        </div>
+    @endif
+
     <form method="POST" wire:submit.prevent="submit">
         @csrf
 

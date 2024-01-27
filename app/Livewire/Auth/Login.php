@@ -17,9 +17,10 @@ class Login extends Component
     public function submit()
     {
         $this->validate();
-        Auth::attempt(['email' => $this->email, 'password' => $this->password]);
-
-        return redirect()->route('home');
+        if (Auth::guard()->attempt(['email' => $this->email, 'password' => $this->password])) {
+            return redirect()->route('home');
+        }
+        session()->flash('status', __('auth.failed'));
     }
 
     public function render()
