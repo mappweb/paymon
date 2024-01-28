@@ -1,7 +1,7 @@
 <?php
 
-use App\Livewire\Admin\Video as VideoAdmin;
-use App\Livewire\User\Video as VideoUser;
+use App\Livewire\Admin\VideoComponent as VideoAdmin;
+use App\Livewire\User\VideoComponent as VideoUser;
 use App\Livewire\Auth\Login;
 use App\Livewire\Auth\Register;
 use App\Livewire\Home;

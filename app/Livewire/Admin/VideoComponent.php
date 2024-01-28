@@ -2,26 +2,34 @@
 
 namespace App\Livewire\Admin;
 
+use App\Livewire\Forms\VideoForm;
 use App\Models\Video as VideoModel;
+use App\Repositories\Contracts\VideoRepositoryInterface;
+use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Video extends Component
+class VideoComponent extends Component
 {
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
+    /**
+     * Open modal variables
+     */
     public bool $flagOpenModal = false;
     public bool $flagOpenConfirmationModal = false;
-    protected array $rules = [
-        'video.label' => 'required|string',
-        'video.url' => 'required|url',
-    ];
-    public array $video = [
-        'id' => null,
-        'label' => '',
-        'url' => '',
-    ];
+
+    public VideoForm $video;
+    private VideoRepositoryInterface $repository;
+
+    /**
+     * @param VideoRepositoryInterface $repository
+     * @return void
+     */
+    public function boot(VideoRepositoryInterface $repository)
+    {
+        $this->video->setReposiory($repository);
+    }
 
     /**
      * @param $action
@@ -38,11 +46,7 @@ class Video extends Component
      */
     public function openCreateModal(): void
     {
-        $this->video = [
-            'id' => null,
-            'label' => '',
-            'url' => '',
-        ];
+        $this->video->reset();
         $this->openCreateEditModal(true);
     }
 
@@ -50,29 +54,30 @@ class Video extends Component
      * @param $id
      * @return void
      */
-    public function openEditModal($id): void
+    public function openEditModal(VideoModel $video): void
     {
         $this->openCreateEditModal(true);
-        $this->video = VideoModel::query()->findOrNew($id)->toArray();
+        $this->video->fill($video->toArray());
     }
 
     /**
-     * @param $id
+     * @param VideoModel $video
      * @return void
      */
-    public function openDestroyModal($id): void
+    public function openDestroyModal(VideoModel $video): void
     {
         $this->flagOpenConfirmationModal = true;
-        $this->video = VideoModel::query()->findOrFail($id)->toArray();
+        $this->video->fill($video->toArray());
     }
 
     /**
      * @return void
+     * @throws ValidationException
      */
     public function save()
     {
         $this->validate();
-        VideoModel::query()->updateOrCreate(['id' => $this->video['id']], $this->video);
+        $this->video->save();
         $this->flagOpenModal = false;
     }
 
@@ -82,7 +87,7 @@ class Video extends Component
      */
     public function destroy(): void
     {
-        VideoModel::query()->findOrFail($this->video['id'])->delete();
+        $this->video->destroy();
         $this->flagOpenConfirmationModal = false;
     }
 

@@ -6,11 +6,10 @@ use App\Models\Video as VideoModel;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Video extends Component
+class VideoComponent extends Component
 {
     use WithPagination;
 
-    protected $paginationTheme = 'bootstrap';
     public bool $flagOpenModal = false;
     public $searchVideo = '';
     public $url;
@@ -19,9 +18,9 @@ class Video extends Component
      * @param $id
      * @return void
      */
-    public function openModal($id): void
+    public function openModal(VideoModel $video): void
     {
-        $this->url = VideoModel::query()->findOrFail($id)->url;
+        $this->url = $video->url;
         $this->flagOpenModal = true;
     }
 
