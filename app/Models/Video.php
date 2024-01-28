@@ -6,6 +6,7 @@ use App\Traits\AuditableTrait;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Video extends Model
 {
@@ -22,4 +23,12 @@ class Video extends Model
         'label',
         'url',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function audit(): HasMany
+    {
+        return $this->hasMany(VideoAudit::class, 'video_id');
+    }
 }

@@ -44,7 +44,9 @@
                     @endforelse
                     </tbody>
                 </table>
-                {{ $videos->links() }}
+                <div class="mt-2">
+                    {{ $videos->links() }}
+                </div>
             </div>
         </div>
     </div>

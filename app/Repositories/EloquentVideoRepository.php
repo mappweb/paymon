@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Video;
 use App\Repositories\Contracts\VideoRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class EloquentVideoRepository implements VideoRepositoryInterface
 {
@@ -12,9 +13,9 @@ class EloquentVideoRepository implements VideoRepositoryInterface
      * @param $columns
      * @param $pageName
      * @param $page
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|mixed
+     * @return LengthAwarePaginator
      */
-    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null)
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null): LengthAwarePaginator
     {
         return Video::query()->paginate(
             $perPage ?? 10,

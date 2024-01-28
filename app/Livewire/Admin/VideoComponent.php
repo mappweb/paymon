@@ -28,6 +28,7 @@ class VideoComponent extends Component
      */
     public function boot(VideoRepositoryInterface $repository)
     {
+        $this->repository = $repository;
         $this->video->setReposiory($repository);
     }
 
@@ -56,8 +57,9 @@ class VideoComponent extends Component
      */
     public function openEditModal(VideoModel $video): void
     {
-        $this->openCreateEditModal(true);
+        $this->video->reset();
         $this->video->fill($video->toArray());
+        $this->openCreateEditModal(true);
     }
 
     /**
@@ -66,8 +68,8 @@ class VideoComponent extends Component
      */
     public function openDestroyModal(VideoModel $video): void
     {
-        $this->flagOpenConfirmationModal = true;
         $this->video->fill($video->toArray());
+        $this->flagOpenConfirmationModal = true;
     }
 
     /**
@@ -76,7 +78,6 @@ class VideoComponent extends Component
      */
     public function save()
     {
-        $this->validate();
         $this->video->save();
         $this->flagOpenModal = false;
     }
@@ -96,7 +97,7 @@ class VideoComponent extends Component
      */
     public function render(): mixed
     {
-        $data['videos'] = VideoModel::query()->paginate(10);
+        $data['videos'] = $this->repository->paginate(10);
         return view('admin.video.index', $data);
     }
 }

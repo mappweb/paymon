@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Contracts;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 interface ModelRepository
 {
     /**
@@ -9,9 +11,9 @@ interface ModelRepository
      * @param $columns
      * @param $pageName
      * @param $page
-     * @return mixed
+     * @return LengthAwarePaginator
      */
-    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null): mixed;
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null): LengthAwarePaginator;
 
     /**
      * @param $attributes

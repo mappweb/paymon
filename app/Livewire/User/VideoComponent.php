@@ -20,6 +20,7 @@ class VideoComponent extends Component
      */
     public function openModal(VideoModel $video): void
     {
+        $video->audit()->create();
         $this->url = $video->url;
         $this->flagOpenModal = true;
     }

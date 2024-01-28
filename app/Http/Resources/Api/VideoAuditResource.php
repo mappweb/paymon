@@ -4,7 +4,7 @@ namespace App\Http\Resources\Api;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserResource extends JsonResource
+class VideoAuditResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,8 +16,7 @@ class UserResource extends JsonResource
     {
         return [
             'id'        => $this->id,
-            'name'  => $this->name,
-            'email'     => $this->email,
+            'user' => new UserResource($this->createdBy),
         ];
     }
 }

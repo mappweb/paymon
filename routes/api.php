@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\FindVideoAuditController;
 use App\Http\Controllers\Api\V1\GetAllVideosController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\LogoutController;
@@ -26,7 +27,5 @@ Route::prefix('v1')->group(function (Router $router) {
 Route::prefix('v1')->middleware('auth:sanctum')->group(function (Router $router) {
     $router->post('logout', LogoutController::class);
     $router->get('videos', GetAllVideosController::class);
-    //$router->post('/posts', CreatePostController::class);
-
-    //$router->get('/authors', GetAllAuthorController::class);
+    $router->get('videos/{id}/audits', FindVideoAuditController::class);
 });
