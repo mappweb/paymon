@@ -13,7 +13,7 @@
                         {{ $item->label }}
                     </h1>
                     <p class="mt-2 text-gray-500 leading-relaxed">
-                        Visualizaciones: <strong> {{ $item->audit()->count() }}</strong>
+                        Visualizaciones: <strong>{{ $item->numberOfViews() }}</strong>
                     </p>
                 </div>
             @empty

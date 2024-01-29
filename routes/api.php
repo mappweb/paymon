@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\V1\FindVideoAuditController;
 use App\Http\Controllers\Api\V1\FindVideoController;
+use App\Http\Controllers\Api\V1\GetAllSearchTermsController;
 use App\Http\Controllers\Api\V1\GetAllVideosController;
 use App\Http\Controllers\Api\V1\LoginController;
 use App\Http\Controllers\Api\V1\LogoutController;
@@ -30,4 +31,5 @@ Route::prefix('v1')->middleware('auth:sanctum')->group(function (Router $router)
     $router->get('videos', GetAllVideosController::class);
     $router->get('videos/{id}/audits', FindVideoAuditController::class);
     $router->get('videos/{id}', FindVideoController::class);
+    $router->get('search-terms', GetAllSearchTermsController::class);
 });

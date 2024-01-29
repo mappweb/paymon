@@ -2,8 +2,8 @@
 
 use App\Livewire\Admin\VideoComponent as VideoAdmin;
 use App\Livewire\User\VideoComponent as VideoUser;
-use App\Livewire\Auth\Login;
-use App\Livewire\Auth\Register;
+use App\Livewire\Auth\LoginComponent;
+use App\Livewire\Auth\RegisterComponent;
 use App\Livewire\Home;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -24,8 +24,8 @@ Route::get('/', static function () {
 });
 
 Route::group(['middleware' => ['guest']], static function () {
-    Route::get('login', Login::class)->name('login');
-    Route::get('register', Register::class)->name('register');
+    Route::get('login', LoginComponent::class)->name('login');
+    Route::get('register', RegisterComponent::class)->name('register');
 });
 
 Route::group(['middleware' => ['auth']], static function () {

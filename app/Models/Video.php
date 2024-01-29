@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\Auth;
 
 class Video extends Model
 {
@@ -30,5 +31,23 @@ class Video extends Model
     public function audit(): HasMany
     {
         return $this->hasMany(VideoAudit::class, 'video_id');
+    }
+
+    /**
+     * @return int
+     */
+    public function numberOfViews(): int
+    {
+        $user = Auth::user();
+        if(is_null($user)){
+            return 0;
+        }
+        if($user->hasRole('admin')){
+            return  $this->audit()
+                ->count();
+        }
+        return  $this->audit()
+            ->where('created_by', '=', $user->id)
+            ->count();
     }
 }

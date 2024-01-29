@@ -13,14 +13,14 @@
         @csrf
 
         <div>
-            <x-label for="email" value="{{ __('Email') }}"/>
+            <x-label for="email" value="{{ __('models/user.fillable.email') }}"/>
             <x-input wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email"
                      :value="old('email')" autofocus autocomplete="username"/>
             @error('email') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
         </div>
 
         <div class="mt-4">
-            <x-label for="password" value="{{ __('Password') }}"/>
+            <x-label for="password" value="{{ __('models/user.fillable.password') }}"/>
             <x-input wire:model="password" id="password" class="block mt-1 w-full" type="password" name="password"
                      autocomplete="current-password"/>
             @error('password') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
@@ -29,7 +29,7 @@
         <div class="block mt-4">
             <label for="remember_me" class="flex items-center">
                 <x-checkbox id="remember_me" name="remember"/>
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
+                <span class="ms-2 text-sm text-gray-600">{{ __('auth.remember_me') }}</span>
             </label>
         </div>
 
@@ -42,7 +42,7 @@
             @endif
 
             <x-button class="ms-4" type="submit">
-                {{ __('Log in') }}
+                {{ __('auth.login') }}
             </x-button>
         </div>
     </form>

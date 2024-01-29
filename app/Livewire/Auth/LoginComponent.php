@@ -5,15 +5,21 @@ namespace App\Livewire\Auth;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
-class Login extends Component
+class LoginComponent extends Component
 {
     public $email;
     public $password;
+    /**
+     * @var string[]
+     */
     protected $rules = [
         'email' => 'required|email',
         'password' => 'required',
     ];
 
+    /**
+     * @return \Illuminate\Http\RedirectResponse|void
+     */
     public function submit()
     {
         $this->validate();
@@ -23,6 +29,9 @@ class Login extends Component
         session()->flash('status', __('auth.failed'));
     }
 
+    /**
+     * @return mixed
+     */
     public function render()
     {
         return view('auth.login')->layout('layouts.guest');

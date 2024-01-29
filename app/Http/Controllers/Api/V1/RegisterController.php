@@ -38,17 +38,26 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param array $data
-     * @return \App\Models\User
+     * @return User
      */
     private function create(array $data): User
     {
-        return User::query()
+        /**
+         * @var User $user
+         */
+        $user = User::query()
             ->create([
                 'first_name' => $data['first_name'],
                 'last_name' => $data['last_name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
             ]);
+        $userRole = config('roles.models.role')::where('name', '=', 'User')->first();
+        if (!empty($userRole)) {
+            $user->attachRole($userRole);
+        }
+
+        return $user;
     }
 
     /**
