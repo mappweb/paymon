@@ -3,6 +3,7 @@
 namespace App\Livewire\User;
 
 use App\Models\Video as VideoModel;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -21,6 +22,9 @@ class VideoComponent extends Component
     public function openModal(VideoModel $video): void
     {
         $video->audit()->create();
+        Auth::user()
+            ->searchAudits()
+            ->create(['text' => trim($this->searchVideo)]);
         $this->url = $video->url;
         $this->flagOpenModal = true;
     }
@@ -32,7 +36,7 @@ class VideoComponent extends Component
     public function updating($key): void
     {
         if ($key === 'searchVideo') {
-             $this->resetPage();
+            $this->resetPage();
         }
     }
 
@@ -43,9 +47,10 @@ class VideoComponent extends Component
     {
         $query = VideoModel::query();
         if (!empty($this->searchVideo)) {
-             $query->where('label', 'like', "%{$this->searchVideo}%");
+            $query->where('label', 'like', "%{$this->searchVideo}%");
         }
         $data['videos'] = $query->paginate(10);
+
         return view('user.video.index', $data);
     }
 }

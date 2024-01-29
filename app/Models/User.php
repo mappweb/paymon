@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use jeremykenedy\LaravelRoles\Traits\HasRoleAndPermission;
@@ -62,5 +63,13 @@ class User extends Authenticatable
     public function getNameAttribute(): string
     {
         return $this->first_name . ' ' . $this->last_name;
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function searchAudits(): HasMany
+    {
+        return $this->hasMany(SearchAudit::class, 'created_by');
     }
 }

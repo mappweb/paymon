@@ -97,7 +97,8 @@ class VideoComponent extends Component
      */
     public function render(): mixed
     {
-        $data['videos'] = $this->repository->paginate(10);
+        $data['videos'] = $this->repository->paginate(10, ['*'], 'page', $this->getPage());
+
         return view('admin.video.index', $data);
     }
 }
